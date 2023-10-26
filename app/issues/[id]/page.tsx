@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { Pencil2Icon } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import EditIssueButton from './EditIssueButton';
+import DeleteIssueButton from './DeleteIssueButton';
 
 interface Props {
   params: { id: string };
@@ -19,8 +21,8 @@ const IssueDetailPage = async ({ params }: Props) => {
   }
 
   return (
-    <Grid columns={{ initial: '1', md: '2' }} gap="5">
-      <Box>
+    <Grid columns={{ initial: '1', sm: '5' }} gap="5">
+      <Box className='md:col-span-4'>
         <Heading> {issue.title} </Heading>
         <Flex className="space-x-3 my-2">
           <IssueStatusBadge status={issue.status} />
@@ -31,10 +33,10 @@ const IssueDetailPage = async ({ params }: Props) => {
         </Card>
       </Box>
       <Box>
-        <Button>
-          <Pencil2Icon />
-          <Link href={`/issues/${issue.id}/edit`}>Edit Issue</Link>
-        </Button>
+        <Flex direction='column' gap='4'>
+          <EditIssueButton issueId={issue.id} />
+          <DeleteIssueButton issueId={issue.id} />
+        </Flex>
       </Box>
     </Grid>
   );
