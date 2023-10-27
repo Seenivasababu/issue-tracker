@@ -4,8 +4,8 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { AiFillBug } from 'react-icons/ai';
 import classnames from 'classnames';
-import { useSession } from "next-auth/react";
-import { Avatar, Box, DropdownMenu, Text} from "@radix-ui/themes";
+import { useSession , signIn} from "next-auth/react";
+import { Avatar, Box, Button, DropdownMenu, Text} from "@radix-ui/themes";
 
 const Navbar = () => {
   const { status, data: session } = useSession();
@@ -39,6 +39,7 @@ const Navbar = () => {
           </Link>
         ))}
       </ul>
+      <Button onClick={()=>signIn('google')}>Sign in</Button>
       <Box>
         {status === "authenticated" && (
           <DropdownMenu.Root>
