@@ -7,17 +7,17 @@ import { useState } from 'react';
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const [error, setError] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const router = useRouter();
   const handleDelete = async () => {
     try {
-      setError(true)
+      setIsDeleting(true);
       await axios.delete('/api/issues/' + issueId);
       router.push('/issues');
       router.refresh();
     } catch (error) {
-      setIsDeleting(false)
+      setIsDeleting(false);
       setError(true);
     }
   };
@@ -25,7 +25,9 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">Delete issue</Button>
+          <Button color="red" disabled={isDeleting}>
+            Delete issue {isDeleting && <Spinner />}
+          </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content>
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
@@ -40,9 +42,8 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button color="red" onClick={handleDelete} disabled={isDeleting}>
+              <Button color="red" onClick={handleDelete}>
                 Delete issue
-                {isDeleting && <Spinner/>}
               </Button>
             </AlertDialog.Action>
           </Flex>
