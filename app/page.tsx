@@ -3,6 +3,7 @@ import LatestIssues from './LatestIssue'
 import IssueSummary from './IssueSummary'
 import prisma from '@/prisma/client';
 import { Flex } from '@radix-ui/themes'
+import IssueChart from './IssueChart';
 
 export default async function Home() {
 
@@ -21,6 +22,7 @@ export default async function Home() {
 
       
       <IssueSummary open={open} inProgress={inProgress} closed={closed}/>
+      <IssueChart open={open} inProgress={inProgress} closed={closed}/>
       <LatestIssues/>
       </Flex>
     </main>
